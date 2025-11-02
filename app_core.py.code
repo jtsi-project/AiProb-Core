@@ -515,27 +515,3 @@ if __name__ == "__main__":
             check_for_updates(config['current_version'])
     
     app.run(host='0.0.0.0', port=5000, debug=False)
-"""
-
-### E. File: `runner_template.sh.code`
-
-```bash
-#!/bin/bash
-# AiProb v<<CORE_VERSION>> Runner - JTSI
-set -e
-VENV_NAME="<<VENV_NAME>>"
-PYTHON_BIN="<<PYTHON_BIN>>"
-
-echo "-------------------------------------------------"
-echo "Mengaktifkan Lingkungan Virtual..."
-. $VENV_NAME/bin/activate
-
-echo "Menjalankan AiProb v<<CORE_VERSION>>..."
-echo "Akses di: [http://0.0.0.0:5000](http://0.0.0.0:5000)"
-echo "Log debug kini tampil di Dashboard Admin (Live Logs)."
-echo "Tekan Ctrl+C untuk menghentikan server."
-
-$PYTHON_BIN app.py
-
-echo "Server dihentikan. Menonaktifkan lingkungan virtual..."
-deactivate
