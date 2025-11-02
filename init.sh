@@ -1,5 +1,5 @@
 #!/bin/bash
-# --- AiProb v7.2-rc CORE Installer (init.sh) ---
+# --- AiProb v7.2-rc CORE Installer (init.sh) - FINAL ANTI-ERROR ---
 # FUNGSI: Mengunduh semua Part dan mengeksekusi instalasi secara berurutan.
 
 set -e
@@ -15,7 +15,8 @@ echo "Memulai proses instalasi modular..."
 
 # --- 1. DOWNLOAD SEMUA PART CORE LOGIC ---
 echo "[SETUP] Mengunduh komponen instalasi modular..."
-CORE_PARTS=("setup_prerequisites.sh" "create_app_files.py" "finalize_ux.sh" "app_core.py.code" "runner_template.sh.code" "requirements.txt")
+# PENTING: Semua file di sini harus ada di GitHub Core
+CORE_PARTS=("setup_prerequisites.sh" "create_app_files.py" "finalize_ux.py" "app_core.py.code" "runner_template.sh.code" "requirements.txt")
 
 for part in "${CORE_PARTS[@]}"; do
     echo "  -> Mendapatkan $part..."
@@ -49,7 +50,8 @@ $PYTHON_BIN_FULL ./create_app_files.py "$CORE_VERSION" || { echo "❌ ERROR: FAS
 # --- 4. EKSEKUSI FASE 3: USER EXPERIENCE AKHIR ---
 echo ""
 echo "--- [FASE 3: PANDUAN AKHIR] ---"
-./finalize_ux.sh "$CORE_VERSION" || { echo "❌ ERROR: FASE 3 GAGAL."; deactivate; exit 1; }
+# Panggil Python script untuk UX dan Menu Interaktif
+$PYTHON_BIN_FULL ./finalize_ux.py "$CORE_VERSION" || { echo "❌ ERROR: FASE 3 GAGAL."; deactivate; exit 1; }
 
 # Jika skrip sampai di sini tanpa error, nonaktifkan venv shell saat ini.
 deactivate
