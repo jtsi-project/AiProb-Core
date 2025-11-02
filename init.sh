@@ -15,19 +15,28 @@ echo "Memulai proses instalasi modular..."
 
 # --- 1. DOWNLOAD SEMUA PART CORE LOGIC ---
 echo "[SETUP] Mengunduh komponen instalasi modular..."
-# PENTING: Semua file di sini harus ada di GitHub Core
+# Pastikan nama file di sini sama persis dengan yang ada di GitHub
 CORE_PARTS=("setup_prerequisites.sh" "create_app_files.py" "finalize_ux.py" "app_core.py.code" "runner_template.sh.code" "requirements.txt")
 
 for part in "${CORE_PARTS[@]}"; do
+    FILE_URL="$GITHUB_RAW_BASE/$part"
     echo "  -> Mendapatkan $part..."
+    
+    # Gunakan cURL/Wget dan pastikan file tidak kosong (mengatasi masalah 404/file corrupted)
     if command -v curl &> /dev/null; then
-        curl -sSL -o "$part" "$GITHUB_RAW_BASE/$part"
+        curl -sSL -o "$part" "$FILE_URL"
     elif command -v wget &> /dev/null; then
-        wget -q -O "$part" "$GITHUB_RAW_BASE/$part"
+        wget -q -O "$part" "$FILE_URL"
     else
         echo "ERROR: curl atau wget tidak ditemukan. Instalasi dibatalkan."
         exit 1
     fi
+
+    if [ ! -s "$part" ]; then
+         echo "❌ ERROR GAGAL UNDUH: $part kosong atau tidak ditemukan di GitHub."
+         exit 1
+    fi
+
     chmod +x "$part"
 done
 
