@@ -1,0 +1,7 @@
+Flask
+requests
+rapidfuzz
+configparser
+itsdangerous
+Werkzeug
+jinja2
