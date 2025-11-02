@@ -19,7 +19,7 @@ echo "Akses: Jalankan skrip runner yang telah disiapkan."
 echo "   \$ ./runner.sh"
 echo ""
 echo "Langkah 2: Setup Awal (Hanya sekali)"
-echo "Akses: Buka browser Anda dan kunjungi [http://127.0.0.1:5000](http://127.0.0.1:5000)"
+echo "Akses: Buka browser Anda dan kunjungi http://127.0.0.1:5000"
 echo "Aksi: Buat akun Admin dan masukkan Kunci API Gemini Anda."
 echo ""
 echo "Langkah 3: Penggunaan Normal"
@@ -37,10 +37,13 @@ read -p "Pilih opsi [1/2]: " POST_INSTALL_CHOICE
 
 if [ "$POST_INSTALL_CHOICE" == "1" ]; then
     echo "Memulai AiProb..."
-    # Kita tidak bisa menjalankan runner.sh dari shell ini karena init.sh sudah dimatikan
-    # Tapi kita bisa memanggilnya secara langsung
-    ./runner.sh
+    
+    # *** PERBAIKAN Izin Eksekusi Mutlak di sini ***
+    chmod +x runner.sh 
+    
+    # Jalankan menggunakan bash agar pasti
+    bash ./runner.sh
 fi
 
-# Nonaktifkan Venv (Ini hanya formalitas, karena init.sh sudah menjalankan deactivate)
-deactivate
+# Nonaktifkan Venv (Ini hanya formalitas)
+deactivate 
