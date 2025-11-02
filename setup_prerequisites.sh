@@ -37,8 +37,6 @@ echo "[1.2] Menyiapkan Lingkungan Virtual ($VENV_NAME)..."
 $PYTHON_BIN -m venv $VENV_NAME || { echo "ERROR: Gagal membuat lingkungan virtual!"; exit 1; }
 
 echo "[1.3] Menginstal Dependensi Python..."
-# requirements.txt sudah diunduh oleh init.sh
-# Di sini pip akan dijalankan dari VENV karena init.sh sudah menjalankan '. .venv_aiprob/bin/activate'
 pip install -r requirements.txt || { echo "ERROR: Gagal menginstal dependensi Python!"; exit 1; }
 
 echo "✅ FASE 1 SELESAI."
